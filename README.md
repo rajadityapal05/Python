@@ -1,18 +1,8 @@
-\# 🎧 SoundIQ — Music Business Intelligence with PostgreSQL
+\# 🎵 SoundIQ — Music Store Business Intelligence with PostgreSQL
 
 
 
-SoundIQ is a business intelligence project built with PostgreSQL to analyze
-
-customer behavior, purchasing patterns, product performance, artist
-
-performance, genre demand, and revenue concentration.
-
-
-
-The project transforms the Chinook music-store database into actionable
-
-business insights using advanced SQL analytics.
+> A portfolio-grade SQL analytics project that transforms transactional music-store data into actionable insights across revenue, customers, products, artists, genres, and catalog performance.
 
 
 
@@ -20,33 +10,37 @@ business insights using advanced SQL analytics.
 
 
 
-\## 📊 Business Problem
+\## 📌 Project Overview
 
 
 
-A digital music business needs to understand:
+\*\*SoundIQ\*\* is a business intelligence and SQL analytics project built on a music-store transactional database.
 
 
 
-\- Who are its most valuable customers?
+The goal is not simply to write SQL queries, but to answer realistic business questions such as:
 
-\- Which customers are at risk of becoming inactive?
+
 
 \- Which tracks and artists generate the most revenue?
 
-\- Which products have never been purchased?
+\- Which products are never purchased?
 
-\- Which genres perform best?
+\- Which artists have the most efficient catalogs?
 
-\- How efficiently do artists monetize their catalogs?
+\- Which genres drive the most sales?
 
-\- Is revenue concentrated among a small number of products?
+\- How concentrated is revenue across the product catalog?
 
-\- Which customer segments deserve targeted marketing?
+\- Which customers represent the highest business value?
+
+\- Which countries generate the strongest customer economics?
+
+\- Where are potential catalog and revenue opportunities?
 
 
 
-SoundIQ answers these questions using PostgreSQL and analytical SQL.
+The project uses \*\*PostgreSQL\*\* and a modular SQL analysis structure so that each business domain can be analyzed independently.
 
 
 
@@ -54,79 +48,33 @@ SoundIQ answers these questions using PostgreSQL and analytical SQL.
 
 
 
-\## 🎯 Project Objectives
+\## 🎯 Business Objective
 
 
 
-The analysis focuses on four major business areas:
+A digital music store needs to understand its customers, products, and revenue drivers in order to make better decisions about:
 
 
 
-\### 👥 Customer Intelligence
+\- Product promotion
 
+\- Catalog optimization
 
+\- Customer retention
 
-\- Customer segmentation
+\- Artist prioritization
 
-\- RFM analysis
+\- Genre strategy
 
-\- Recency, frequency, and monetary scoring
-
-\- Customer lifetime value
-
-\- Customer value tiers
-
-\- Geographic customer analysis
-
-
-
-\### 🎵 Product Intelligence
-
-
-
-\- Top-selling tracks
-
-\- Never-purchased tracks
-
-\- Album performance
-
-\- Genre performance
-
-\- Artist performance
-
-\- Catalog efficiency
+\- Market expansion
 
 \- Revenue concentration
 
-
-
-\### 💰 Revenue Intelligence
-
-
-
-\- Revenue contribution
-
-\- Average order value
-
-\- Revenue concentration
-
-\- Product-level revenue share
-
-\- Customer-level revenue contribution
+\- Sales performance
 
 
 
-\### 🌍 Geographic Intelligence
-
-
-
-\- Revenue by country
-
-\- Customers by country
-
-\- Revenue per customer
-
-\- Average order value by market
+SoundIQ converts raw transactional data into a structured \*\*business intelligence layer\*\*.
 
 
 
@@ -134,87 +82,61 @@ The analysis focuses on four major business areas:
 
 
 
-\## 🧠 Key SQL Techniques
-
-
-
-This project demonstrates practical PostgreSQL skills including:
-
-
-
-\- `JOIN`
-
-\- `LEFT JOIN`
-
-\- `GROUP BY`
-
-\- `HAVING`
-
-\- `CASE`
-
-\- Common Table Expressions (`WITH`)
-
-\- Window functions
-
-\- `SUM() OVER()`
-
-\- Ranking
-
-\- Percentile-style scoring
-
-\- Conditional aggregation
-
-\- `COUNT(DISTINCT ...)`
-
-\- Revenue calculations
-
-\- Customer segmentation
-
-\- RFM analysis
-
-
-
-\---
-
-
-
-\## 📁 Project Structure
+\## 🏗️ Project Architecture
 
 
 
 ```text
 
-soundiq/
+&#x20;                   ┌─────────────────────┐
 
-│
+&#x20;                   │   Raw Music Data    │
 
-├── data/
+&#x20;                   │   Chinook Dataset   │
 
-│
+&#x20;                   └──────────┬──────────┘
 
-├── sql/
+&#x20;                              │
 
-│   ├── 01\_data\_quality.sql
+&#x20;                              ▼
 
-│   ├── 02\_sales\_intelligence.sql
+&#x20;                   ┌─────────────────────┐
 
-│   ├── 03\_customer\_intelligence.sql
+&#x20;                   │     PostgreSQL      │
 
-│   └── 04\_product\_intelligence.sql
+&#x20;                   │   Relational Model  │
 
-│
+&#x20;                   └──────────┬──────────┘
 
-├── reports/
+&#x20;                              │
 
-│   └── insights.md
+&#x20;            ┌─────────────────┼─────────────────┐
 
-│
+&#x20;            ▼                 ▼                 ▼
 
-├── screenshots/
+&#x20;     Data Quality       Revenue Analysis   Customer Analysis
 
-│
+&#x20;            │                 │                 │
 
-├── README.md
+&#x20;            └─────────────────┼─────────────────┘
 
-└── .gitignore
+&#x20;                              │
+
+&#x20;            ┌─────────────────┼─────────────────┐
+
+&#x20;            ▼                 ▼                 ▼
+
+&#x20;      Product IQ         Artist IQ          Business Insights
+
+&#x20;                              │
+
+&#x20;                              ▼
+
+&#x20;                   ┌─────────────────────┐
+
+&#x20;                   │ Decision-ready SQL  │
+
+&#x20;                   │       Insights      │
+
+&#x20;                   └─────────────────────┘
 
