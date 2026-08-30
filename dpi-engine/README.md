@@ -1,123 +1,222 @@
-# DPI Engine
+﻿# DPI Engine
 
-A Python-based Deep Packet Inspection (DPI) engine built with Scapy for packet analysis, application classification, traffic filtering, flow tracking, PCAP analysis, DNS inspection, TLS SNI detection, and live network monitoring.
+A modular Python-based Deep Packet Inspection engine for authorized network traffic analysis, application classification, traffic policy enforcement, flow tracking, PCAP processing, and live monitoring.
+
+## Overview
+
+DPI Engine analyzes network packets using Scapy and combines protocol-level inspection with application classification and configurable traffic rules.
+
+The project was designed with a modular architecture so packet parsing, protocol extraction, classification, rule evaluation, flow tracking, and command-line interaction remain separated and testable.
 
 ## Features
 
-- Packet parsing with Scapy
-- Five-tuple flow tracking
+- Deep packet inspection using Scapy
 - HTTP Host extraction
-- TLS SNI extraction
+- TLS ClientHello SNI extraction
 - DNS query extraction
 - Application classification
-- BLOCK / ALLOW / UNKNOWN rules
-- Offline PCAP processing
-- Live packet sniffing
+- BLOCK / ALLOW / UNKNOWN traffic rules
+- Five-tuple flow tracking
+- Offline PCAP analysis
+- Live packet monitoring
 - Traffic statistics
 - Command-line interface
-- Automated test suite
+- Automated Pytest test suite
 
 ## Detection Pipeline
 
-Network Packet
-    |
-    v
+`	ext
+Network Traffic
+      |
+      v
+Packet Capture
+  PCAP / Live
+      |
+      v
 Packet Parser
-    |
-    +---- HTTP Host
-    |
-    +---- TLS SNI
-    |
-    +---- DNS Query
-    |
-    v
-Application Classifier
-    |
-    v
-Rule Manager
-    |
-    +---- BLOCK
-    |
-    +---- ALLOW
-    |
-    v
-Flow Tracking
-    |
-    v
-Statistics
+      |
+ +----+----+----+
+ |         |    |
+ v         v    v
+HTTP      TLS  DNS
+Host      SNI  Query
+ |         |    |
+ +---------+----+
+           |
+           v
+    Domain Detection
+           |
+           v
+ Application Classifier
+           |
+           v
+      Rule Manager
+           |
+     +-----+-----+
+     |     |     |
+     v     v     v
+   BLOCK ALLOW UNKNOWN
+     |     |     |
+     +-----+-----+
+           |
+           v
+      Flow Tracking
+           |
+           v
+       Statistics
+` 
+
+## Architecture
+
+The system is organized into independent components for packet processing, protocol extraction, classification, policy decisions, flow tracking, and reporting.
+
+See the detailed architecture documentation:
+
+- [Architecture](docs/architecture.md)
+- [Design](docs/design.md)
+- [Traffic Rules](docs/rules.md)
+- [Project Documentation](docs/pages.doc.md)
+
+## Project Structure
+
+`	ext
+dpi-engine/
+|-- data/
+|-- rules/
+|-- scripts/
+|-- src/
+|   |-- dpi_engine/
+|       |-- classifier.py
+|       |-- cli.py
+|       |-- dns_extractor.py
+|       |-- engine.py
+|       |-- flow_tracker.py
+|       |-- live_sniffer.py
+|       |-- models.py
+|       |-- packet_parser.py
+|       |-- pcap_processor.py
+|       |-- pcap_reader.py
+|       |-- rules.py
+|       |-- sni_extractor.py
+|       |-- tls_parser.py
+|-- tests/
+|-- docs/
+|   |-- architecture.md
+|   |-- design.md
+|   |-- rules.md
+|   |-- pages.doc.md
+|-- README.md
+|-- requirements.txt
+` 
+
+## Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| Python | Core implementation |
+| Scapy | Packet inspection and network parsing |
+| Pytest | Automated testing |
+| TCP/IP | Network protocol analysis |
+| HTTP | Host inspection |
+| TLS | SNI inspection |
+| DNS | Domain extraction |
+| PCAP | Offline packet analysis |
 
 ## Installation
 
 Create a virtual environment:
 
-    python -m venv .venv
-
-Activate it on Windows:
-
-    .\.venv\Scripts\Activate.ps1
-
-Install dependencies:
-
-    pip install -r requirements.txt
+`powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+` 
 
 ## PCAP Analysis
 
 Run the included test PCAP:
 
-    python -m src.dpi_engine.cli tests\data\test_dpi.pcap
+`powershell
+python -m src.dpi_engine.cli tests\data\test_dpi.pcap
+` 
 
-Expected result:
+Expected validation:
 
-    Total Packets : 3
-    Forwarded     : 2
-    Blocked       : 1
-    Flows         : 3
+`	ext
+Total Packets : 3
+Forwarded     : 2
+Blocked       : 1
+Flows         : 3
 
-    youtube : 1
-    github  : 1
-    other   : 1
+Applications:
+  youtube      : 1
+  github       : 1
+  other        : 1
+` 
 
 ## Live Monitoring
 
-Start the live sniffer:
+Start live monitoring with:
 
-    python -m src.dpi_engine.cli --live
+`powershell
+python -m src.dpi_engine.cli --live
+` 
 
-Press Ctrl+C to stop.
-
-On Windows, live packet capture may require Npcap.
+On Windows, live packet capture may require Npcap and appropriate capture permissions.
 
 ## Testing
 
-Run:
+Run the automated test suite:
 
-    python -m pytest -q
+`powershell
+python -m pytest -q
+` 
 
 Current validation:
 
-    8 passed
+`	ext
+8 passed
+` 
 
-## Example Detection
+## Validation Results
 
-    www.youtube.com  -> BLOCK
-    github.com       -> ALLOW
-    example.com      -> UNKNOWN
+### Offline PCAP
 
-## Technologies
+`	ext
+Packets:   3
+Forwarded: 2
+Blocked:   1
+Flows:     3
+` 
 
-- Python
-- Scapy
-- Pytest
-- TCP/IP
-- HTTP
-- TLS
-- DNS
-- PCAP
-- Deep Packet Inspection
+### Live Monitoring
+
+A live monitoring test captured:
+
+`	ext
+Packets:   69
+Forwarded: 69
+Blocked:   0
+Flows:     19
+` 
+
+## Portfolio Highlights
+
+This project demonstrates practical experience with:
+
+- Network packet analysis
+- Protocol-level inspection
+- Python software architecture
+- Rule-based traffic classification
+- Flow tracking
+- PCAP processing
+- Real-time network monitoring
+- Automated testing
+- CLI application development
 
 ## Project Status
 
-The DPI Engine supports offline PCAP analysis and live packet capture with application classification, traffic rules, flow tracking, DNS inspection, TLS SNI detection, and traffic statistics.
+The DPI Engine currently supports offline PCAP analysis and live packet capture with application classification, configurable traffic rules, flow tracking, DNS inspection, TLS SNI detection, and traffic statistics.
 
 ## Disclaimer
 
